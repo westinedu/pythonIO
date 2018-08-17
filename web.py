@@ -63,11 +63,16 @@ newtag1 = copy.copy(state_table.find("th",{"class":"state-req-intl"}))
 newtag1['class']="Hours in Accounting"
 newtag1.find("span").string = "Hours in Accounting"
 print(newtag1.prettify())
+state_table.find("thead").tr.append(newtag1)
 
+newtag2 = copy.copy(state_table.find("th",{"class":"state-req-intl"}))
+newtag2['class']="Experience Requirements"
+newtag2.find("span").string = "Experience Requirements:"
 
+state_table.find("thead").tr.append(newtag2)
 
 print(state_table.find("thead").tr)
-state_table.find("thead").tr.append(newtag1)
+
 
 print(state_table.find("thead").tr.prettify())
 f.write(state_table.prettify())
@@ -119,8 +124,13 @@ for address in addressList:
     print(trs[4])
     temp_newtag1 = copy.copy(newtag1)
     temp_newtag1.find("span").string = trs[6].find_all(name='td')[1].text
+    
+    temp_newtag2 = copy.copy(newtag2)
+    temp_newtag2.find("span").string = trs[8].find_all(name='td')[1].text
+    
     state_table_trs[count].append(temp_newtag)
     state_table_trs[count].append(temp_newtag1)
+    state_table_trs[count].append(temp_newtag2)
     count += 1
     
     
