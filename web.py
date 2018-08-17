@@ -43,7 +43,7 @@ for child in bsObj.find("table",{"class":"state-req-table"}).children:
 print(bsObj.find("table",{"class":"state-req-table"}).prettify()) 
 state_table = bsObj.find("table",{"class":"state-req-table"})    
 
-f = open("AICPA.html", "w")  
+f = open("AICPA.html", "w",encoding='UTF-8')  
 f.write(state_table.prettify())
 
 print(state_table.find("thead").tr)
@@ -110,15 +110,17 @@ count = 1
 for address in addressList:
     html = urlopen(address)
     bsObj = BeautifulSoup(html.read(),"lxml")
+    print(bsObj.find("h1",{"id":"page_title","class":"teal-accent-light-text"}).text)
     sub_table=bsObj.find("table",{"id":"requirements_table","class":"table table-bordered"})
     trs = sub_table.find_all(name='tr')
-    tds=trs[6].find_all(name='td')
+  # tds=trs[6].find_all(name='td')
     temp_newtag = copy.copy(newtag)
     temp_newtag.find("span").string = trs[4].find_all(name='td')[1].text
+    print(trs[4])
     temp_newtag1 = copy.copy(newtag1)
     temp_newtag1.find("span").string = trs[6].find_all(name='td')[1].text
     state_table_trs[count].append(temp_newtag)
-    state_table_trs[count].append(copy.copy(temp_newtag1))
+    state_table_trs[count].append(temp_newtag1)
     count += 1
     
     
