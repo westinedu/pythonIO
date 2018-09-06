@@ -32,17 +32,18 @@ crawl_content = bsObj.find("div",{"class":"forFlow"})
 sub_htmls = crawl_content.find_all("div",{"class":"c_b_p_desc"})
 
 def GetCss(html):
-    patterncss ='<link type="text/css"  href="(.*?)"'
-    patternjs = '<script src="(.*?)"'
-    patternimg = '<img src="(.*?)"'
-    patternpage = '<a.*?href="(.*?)"'
-    patternonclick = "openQuestion.*?'(.*?)'"
+#    patterncss ='<link[]type="text/css"  href="(.*?)"'
+    patterncss = r'\.css'
+#    patternjs = '<script src="(.*?)"'
+#    patternimg = '<img src="(.*?)"'
+#    patternpage = '<a.*?href="(.*?)"'
+#    patternonclick = "openQuestion.*?'(.*?)'"
     href = re.compile(patterncss, re.S).findall(html)
-    href += re.compile(patternimg, re.S).findall(html)
-    href += re.compile(patternpage, re.S).findall(html)
-    href += re.compile(patternjs, re.S).findall(html)
-    href += re.compile(patternonclick, re.S).findall(html)
-return href
+#    href += re.compile(patternimg, re.S).findall(html)
+#    href += re.compile(patternpage, re.S).findall(html)
+#    href += re.compile(patternjs, re.S).findall(html)
+#    href += re.compile(patternonclick, re.S).findall(html)
+    return href
 
 
 def CreateFolder(path):
@@ -64,6 +65,7 @@ def SaveSubHtmls(sub_html_list):
         sub_page = urlopen(sub_url)
         #print(sub_url)   
         bsObj = BeautifulSoup(sub_page.read(),"lxml")
+        print(GetCss(bsObj.prettify()))
         
         sub_file_name = validateTitle(bsObj.find("head").find("title").text+".html")
         sub_folder_name = validateTitle(bsObj.find("head").find("title").text+"_files")
